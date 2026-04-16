@@ -1,10 +1,22 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { WagmiProvider } from 'wagmi'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { config } from './config.ts'
 import './index.css'
 import MyApp from './App.tsx'
 
+const queryClient = new QueryClient()
+
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <MyApp />
-  </StrictMode>,
+    <StrictMode>
+        <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClient}>
+                <RainbowKitProvider>
+                    <MyApp />
+                </RainbowKitProvider>
+            </QueryClientProvider>
+        </WagmiProvider>
+    </StrictMode>,
 )

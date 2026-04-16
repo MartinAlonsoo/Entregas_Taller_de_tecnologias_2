@@ -1,21 +1,16 @@
-import { useState } from 'react'
 import MyLogInComponent from "./logInComponent.tsx";
+import {useAccount} from "wagmi";
+import DashboardComponent from "./dashboardcomponent.tsx";
 
 export default function MyApp() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [walletAdress, setWalletAdress] = useState("")
-
-  function hadleLogInResponse(isLoggedInResponse: boolean, walletAdressResponse: string) {
-      setIsLoggedIn(isLoggedInResponse)
-      setWalletAdress(walletAdressResponse)
-  }
+    const { isConnected} = useAccount()
 
   let content;
 
-  if (isLoggedIn) {
-      content = <MyLogInComponent onLogin={hadleLogInResponse} />;
+  if (isConnected) {
+      content = <MyLogInComponent/>;
   } else {
-      content = <LoginForm />;
+      content = <DashboardComponent />;
   }
   return (
     <div>
