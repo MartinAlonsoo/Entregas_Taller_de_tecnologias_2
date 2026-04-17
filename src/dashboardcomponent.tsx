@@ -43,6 +43,11 @@ const erc20Abi = [
     },
 ] as const
 
+function formatFixedDecimals(value: bigint, decimals: number, fractionDigits: number) {
+    const [whole, fraction = ''] = formatUnits(value, decimals).split('.')
+    return `${whole}.${fraction.padEnd(fractionDigits, '0').slice(0, fractionDigits)}`
+}
+
 export default function DashboardComponent() {
     const { address, isConnected } = useAccount()
     const hasConnectedWallet = Boolean(address)
@@ -135,19 +140,28 @@ export default function DashboardComponent() {
         },
     })
 
-    if (!isConnected) {
+    if (!isConnected || !address) {
         return null
     }
 
+    // La consigna pide que el saldo de ETH se vea con 4 decimales sin depender de APIs deprecadas.
+    const formattedEthBalance =
+        ethBalance !== undefined
+            ? formatFixedDecimals(ethBalance.value, ethBalance.decimals, 4)
+            : 'Pendiente'
+
     const formattedToken1Balance =
         token1Balance !== undefined && token1Decimals !== undefined
-            ? formatUnits(token1Balance, Number(token1Decimals))
+            ? formatUnits(token1Balance, token1Decimals)
             : 'Pendiente'
 
     const formattedToken2Balance =
         token2Balance !== undefined && token2Decimals !== undefined
-            ? formatUnits(token2Balance, Number(token2Decimals))
+            ? formatUnits(token2Balance, token2Decimals)
             : 'Pendiente'
+
+    // Si no hay ENS, la consigna pide mostrar la address abreviada.
+    const walletLabel = ensName ?? `${address.slice(0, 6)}...${address.slice(-4)}`
 
     return (
         <section>
@@ -155,8 +169,8 @@ export default function DashboardComponent() {
 
             <div>
                 <h2>Panel de cuenta</h2>
-                <p>Wallet: {ensName ?? address}</p>
-                <p>Saldo ETH: {ethBalance?.formatted}</p>
+                <p>Wallet: {walletLabel}</p>
+                <p>Saldo ETH: {formattedEthBalance}</p>
                 <p>Bloque actual: {blockNumber?.toString()}</p>
             </div>
 
