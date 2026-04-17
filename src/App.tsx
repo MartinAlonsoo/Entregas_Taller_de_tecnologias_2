@@ -7,7 +7,7 @@ export default function MyApp() {
 
   let content;
 
-  if (isConnected) {
+  if (!isConnected) {
       content = <MyLogInComponent/>;
   } else {
       content = <DashboardComponent />;

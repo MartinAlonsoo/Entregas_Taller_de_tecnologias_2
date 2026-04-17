@@ -9,8 +9,8 @@ import { formatUnits, type Address } from 'viem'
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000' as const
 
-const TOKEN_1_ADDRESS: Address = ZERO_ADDRESS
-const TOKEN_2_ADDRESS: Address = ZERO_ADDRESS
+const TOKEN_1_ADDRESS: Address = '0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238'
+const TOKEN_2_ADDRESS: Address = '0x779877A7B0D9E8603169DdbD7836e478b4624789'
 
 const erc20Abi = [
     {
