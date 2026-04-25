@@ -4,6 +4,12 @@ Aplicacion React + TypeScript que se conecta a una wallet Ethereum en Sepolia y 
 - Panel de cuenta (ENS o address abreviada, saldo ETH, bloque actual).
 - Saldos de 2 tokens ERC-20 (nombre, simbolo y balance).
 
+## Link al Repo
+
+ - https://github.com/MartinAlonsoo/entrega_1_taller_2.git
+
+ Importante ver que el codigo de esta entrega se encuentra en la rama "entrega_1", no en main
+
 ## Requisitos
 
 - Node.js 18+
@@ -51,3 +57,8 @@ npm run build
 
 - USDC: `0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238`
 - LINK: `0x779877A7B0D9E8603169DdbD7836e478b4624789`
+
+## Integrantes:
+
+Martin Alonso (291799)
+Juan Carriquiry (310190)
