@@ -6,11 +6,4 @@ export default defineConfig({
   define: {
     global: "globalThis",
   },
-  resolve: {
-    alias: {
-      process: "process/browser",
-      stream: "stream-browserify",
-      util: "util",
-    },
-  },
 });

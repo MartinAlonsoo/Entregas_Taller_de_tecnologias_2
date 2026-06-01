@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\juanm\\OneDrive - Facultad de Ingenieria - Universidad ORT Uruguay\\Facultad\\Taller 2\\entrega_1_taller_2\\contracts\\MultiSig.sol": {
-      "lastModificationDate": 1780091142096,
-      "contentHash": "94eece4f4f09bdfe518163ff135ee3a0",
+      "lastModificationDate": 1780354891201,
+      "contentHash": "3feff1dbf740db180bb01d67f34ca959",
       "sourceName": "contracts/MultiSig.sol",
       "solcConfig": {
         "version": "0.8.4",

@@ -2,7 +2,7 @@
 
 **Taller 2 — Universidad ORT Uruguay**
 
-Implementación full-stack de un contrato de firma múltiple (multisig programático) en Solidity, con interfaz React desplegada localmente e interactuando con Sepolia testnet.
+Implementación full-stack de un contrato de firma múltiple (multisig programático) en Solidity, con interfaz React interactuando con la red de pruebas Sepolia.
 
 ---
 
@@ -10,7 +10,7 @@ Implementación full-stack de un contrato de firma múltiple (multisig programá
 
 Este proyecto implementa un **multisig programático**: el contrato almacena una lista fija de `signers` autorizados y requiere que al menos `threshold` de ellos aprueben una propuesta antes de que pueda ejecutarse.
 
-> **Decisión de diseño**: El conjunto de signers es **fijo en el despliegue** (`constructor`). Se eligió este enfoque por su simplicidad y menor superficie de ataque, ya que no expone funciones de administración de signers.
+> **Decisión de diseño**: El conjunto de signers es **fijo en el despliegue**. Se eligió este enfoque por su simplicidad y menor superficie de ataque.
 
 ---
 
@@ -21,7 +21,7 @@ entrega_1_taller_2/
 ├── contracts/
 │   └── MultiSig.sol           # Contrato principal
 ├── scripts/
-│   └── deploy.js              # Script de despliegue (Hardhat)
+│   └── deploy.js              # Script de despliegue
 ├── test/
 │   └── MultiSig.test.js       # Suite de tests (25 tests)
 ├── frontend/
@@ -30,7 +30,7 @@ entrega_1_taller_2/
 │   │   ├── components/        # Componentes React
 │   │   ├── hooks/
 │   │   │   └── useMultisig.ts # Hook principal Web3
-│   │   ├── config.ts          # Dirección del contrato (hardcodeada)
+│   │   ├── config.ts          # Dirección del contrato
 │   │   ├── App.tsx
 │   │   └── index.css
 │   └── package.json
@@ -43,69 +43,67 @@ entrega_1_taller_2/
 
 ## ⚙️ Requisitos
 
-- **Node.js ≥ 14** para el frontend (Vite requiere Node 14+)
-- Node.js ≥ 12 es suficiente para compilar/testear el contrato
+- Node.js ≥ 12 (para el contrato)
+- Node.js ≥ 14 (para el frontend con Vite)
 - MetaMask instalado en el navegador
-- ETH de testnet en Sepolia ([faucet](https://sepoliafaucet.com/))
-
-> **Nota**: Si tenés Node 12, podés compilar y testear el contrato sin problemas. Para el frontend necesitás actualizar Node.js a la versión 18 LTS (recomendada): [nodejs.org](https://nodejs.org/)
+- ETH de testnet en Sepolia ([Google Faucet](https://cloud.google.com/application/web3/faucet/ethereum/sepolia))
 
 ---
 
-## 🔨 Contrato Inteligente
-
-### Compilar
+## 🔨 Compilar el contrato
 
 ```bash
+# Desde la raíz del proyecto
 npm install
 npm run compile
-# o: npx hardhat compile
 ```
 
-### Correr tests
+---
+
+## 🧪 Correr los tests
 
 ```bash
 npm test
-# o: npx hardhat test
 ```
 
-Cubre: proponer, aprobar, ejecutar, cancelar, rechazo de duplicados, rechazo de non-signers (25 tests en total).
+Suite de 25 tests que cubre: proponer, aprobar, ejecutar, cancelar, rechazo de duplicados y rechazo de non-signers.
 
-### Desplegar en Sepolia
+---
 
-1. Copiar `.env.example` como `.env` y completar:
+## 🚀 Desplegar en Sepolia
+
+### 1. Configurar variables de entorno
+
+Copiar `.env.example` como `.env` y completar:
 
 ```bash
 copy .env.example .env
 ```
 
-Editar `.env`:
 ```env
-SEPOLIA_RPC_URL=https://eth-sepolia.g.alchemy.com/v2/TU_KEY
+SEPOLIA_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com
 PRIVATE_KEY=tu_clave_privada_sin_0x
-SIGNERS=0xAddr1,0xAddr2,0xAddr3
+SIGNERS=0xDireccion1,0xDireccion2
 THRESHOLD=2
 ```
 
-2. Desplegar:
+### 2. Ejecutar el deploy
 
 ```bash
 npm run deploy:sepolia
-# o: npx hardhat run scripts/deploy.js --network sepolia
 ```
 
-3. Copiar la dirección del contrato al frontend:
+### 3. Actualizar la dirección en el frontend
 
-```ts
-// frontend/src/config.ts
-export const CONTRACT_ADDRESS = "0xTU_CONTRATO";
+Copiar la dirección que imprime el script y pegarla en `frontend/src/config.ts`:
+
+```typescript
+export const CONTRACT_ADDRESS = "0x...dirección del contrato...";
 ```
 
 ---
 
-## 🌐 Frontend (React + Vite)
-
-### Instalar y correr
+## 🌐 Ejecutar el frontend localmente
 
 ```bash
 cd frontend
@@ -113,51 +111,46 @@ npm install
 npm run dev
 ```
 
-El frontend estará disponible en `http://localhost:5173`.
+Abrir el navegador en **http://localhost:5173**.
 
-### Configuración
-
-Editar [`frontend/src/config.ts`](./frontend/src/config.ts):
-
-```ts
-// Dirección del contrato desplegado en Sepolia
-export const CONTRACT_ADDRESS = "0xTU_CONTRATO_AQUI";
-```
+Conectar MetaMask con una de las wallets signer listadas abajo y asegurarse de estar en la red **Sepolia**.
 
 ---
 
-## 🚀 Contrato desplegado en Sepolia
+## 📋 Contrato desplegado en Sepolia
 
 | Campo | Valor |
 |-------|-------|
-| **Dirección** | `0x0000000000000000000000000000000000000000` *(actualizar tras despliegue)* |
-| **Red** | Sepolia Testnet (chain ID: 11155111) |
-| **Etherscan** | [Ver contrato](https://sepolia.etherscan.io/address/0x0000000000000000000000000000000000000000) |
+| **Dirección del contrato** | `0x543B6A85cc2f252D580f6d314110C75D11Ef3b2E` |
+| **Red** | Sepolia Testnet (Chain ID: 11155111) |
+| **Threshold** | 2 de 2 |
+| **Etherscan** | [Ver contrato](https://sepolia.etherscan.io/address/0x543B6A85cc2f252D580f6d314110C75D11Ef3b2E) |
 
-### Wallets para interactuar
+---
+
+## 👛 Wallets para interactuar
+
+Estas son las dos wallets autorizadas como signers del contrato. Ambas deben tener ETH de Sepolia para poder firmar transacciones.
 
 | Signer | Dirección |
 |--------|-----------|
-| Signer 1 | `0x...` |
-| Signer 2 | `0x...` |
-| Signer 3 | `0x...` |
-
-*(Completar con las direcciones reales tras despliegue)*
+| Signer 1 | `0xb9F8D0EDD8028F70555450Ff1dA12b843225820e` |
+| Signer 2 | `0xB534FDc6Eb51C5Cb54dC6830A7040e64a0837EF1` |
 
 ---
 
-## 🧪 Flujo de prueba
+## 🧪 Flujo de prueba en Sepolia
 
-1. Conectar MetaMask en Sepolia
-2. Asegurarse de estar conectado con una wallet que sea signer
+1. Abrir **http://localhost:5173** con el frontend corriendo
+2. Conectar MetaMask con **Signer 1** en la red Sepolia
 3. Crear una propuesta (dirección destino + valor ETH)
-4. Aprobarla con al menos `threshold` signers distintos
-5. Ejecutar la propuesta cuando se alcanza el umbral
+4. Aprobar la propuesta con **Signer 1**
+5. Cambiar a **Signer 2** en MetaMask y aprobar la misma propuesta
+6. Con cualquiera de los dos signers, ejecutar la propuesta (el botón se habilita al llegar a 2/2 aprobaciones)
+7. Verificar la transacción en [Sepolia Etherscan](https://sepolia.etherscan.io/address/0x543B6A85cc2f252D580f6d314110C75D11Ef3b2E)
 
 ---
 
-## 📄 Integrantes
+## 👥 Integrantes
 
 - *(completar con nombres del grupo)*
-
-Entrega por grupo — hasta 3 integrantes.
