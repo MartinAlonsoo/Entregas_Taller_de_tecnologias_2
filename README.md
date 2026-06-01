@@ -1,4 +1,4 @@
-# 🛡️ Entrega 2: Contrato MultiSig
+# Entrega 2: Contrato MultiSig
 
 **Taller 2 — Universidad ORT Uruguay**
 
@@ -14,7 +14,7 @@ Este proyecto implementa un **multisig programático**: el contrato almacena una
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 
 ```
 entrega_1_taller_2/
@@ -41,7 +41,7 @@ entrega_1_taller_2/
 
 ---
 
-## ⚙️ Requisitos
+##  Requisitos
 
 - Node.js ≥ 12 (para el contrato)
 - Node.js ≥ 14 (para el frontend con Vite)
@@ -50,7 +50,7 @@ entrega_1_taller_2/
 
 ---
 
-## 🔨 Compilar el contrato
+##  Compilar el contrato
 
 ```bash
 # Desde la raíz del proyecto
@@ -60,7 +60,7 @@ npm run compile
 
 ---
 
-## 🧪 Correr los tests
+##  Correr los tests
 
 ```bash
 npm test
@@ -70,7 +70,7 @@ Suite de 25 tests que cubre: proponer, aprobar, ejecutar, cancelar, rechazo de d
 
 ---
 
-## 🚀 Desplegar en Sepolia
+## Desplegar en Sepolia
 
 ### 1. Configurar variables de entorno
 
@@ -103,7 +103,7 @@ export const CONTRACT_ADDRESS = "0x...dirección del contrato...";
 
 ---
 
-## 🌐 Ejecutar el frontend localmente
+## Ejecutar el frontend localmente
 
 ```bash
 cd frontend
@@ -117,7 +117,7 @@ Conectar MetaMask con una de las wallets signer listadas abajo y asegurarse de e
 
 ---
 
-## 📋 Contrato desplegado en Sepolia
+## Contrato desplegado en Sepolia
 
 | Campo | Valor |
 |-------|-------|
@@ -128,7 +128,7 @@ Conectar MetaMask con una de las wallets signer listadas abajo y asegurarse de e
 
 ---
 
-## 👛 Wallets para interactuar
+## Wallets para interactuar
 
 Estas son las dos wallets autorizadas como signers del contrato. Ambas deben tener ETH de Sepolia para poder firmar transacciones.
 
@@ -139,7 +139,7 @@ Estas son las dos wallets autorizadas como signers del contrato. Ambas deben ten
 
 ---
 
-## 🧪 Flujo de prueba en Sepolia
+## Flujo de prueba en Sepolia
 
 1. Abrir **http://localhost:5173** con el frontend corriendo
 2. Conectar MetaMask con **Signer 1** en la red Sepolia
@@ -151,6 +151,6 @@ Estas son las dos wallets autorizadas como signers del contrato. Ambas deben ten
 
 ---
 
-## 👥 Integrantes
+## Integrantes
 
-- *(completar con nombres del grupo)*
+- Juan Carriquiry (310190) y Martín Alonso (291799)
