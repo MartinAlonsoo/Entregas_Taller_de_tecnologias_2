@@ -31,7 +31,7 @@ async function main() {
   await multisig.deployed();
 
   console.log(`MultiSig desplegado en: ${multisig.address}`);
-  console.log(`\n🔍 Verificar en Etherscan:`);
+  console.log(`\n Verificar en Etherscan:`);
   console.log(`   https://sepolia.etherscan.io/address/${multisig.address}`);
   console.log(`\n Agrega esta dirección en el frontend:`);
   console.log(`   frontend/src/config.ts → CONTRACT_ADDRESS = "${multisig.address}"`);
