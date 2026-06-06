@@ -168,7 +168,9 @@ export function useMultisig() {
         if (pollRef.current) clearInterval(pollRef.current);
       } else {
         setState((s) => ({ ...s, account: accounts[0] }));
+        if (pollRef.current) clearInterval(pollRef.current);
         loadContractData(accounts[0]);
+        pollRef.current = setInterval(() => loadContractData(accounts[0]), 6000);
       }
     };
 
@@ -214,6 +216,7 @@ export function useMultisig() {
       const tx = await contract.propose(to, value, calldata);
       await tx.wait();
       if (state.account) await loadContractData(state.account);
+      return true;
     }));
   };
 
@@ -224,6 +227,7 @@ export function useMultisig() {
       const tx = await contract.approve(proposalId);
       await tx.wait();
       if (state.account) await loadContractData(state.account);
+      return true;
     }));
   };
 
@@ -234,6 +238,7 @@ export function useMultisig() {
       const tx = await contract.execute(proposalId);
       await tx.wait();
       if (state.account) await loadContractData(state.account);
+      return true;
     }));
   };
 
@@ -244,6 +249,7 @@ export function useMultisig() {
       const tx = await contract.cancel(proposalId);
       await tx.wait();
       if (state.account) await loadContractData(state.account);
+      return true;
     }));
   };
 

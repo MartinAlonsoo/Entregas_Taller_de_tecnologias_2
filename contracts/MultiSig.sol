@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
 /**
@@ -7,8 +8,6 @@ pragma solidity ^0.8.4;
  *      transacción se requiere que al menos `threshold` signers la aprueben.
  */
 contract MultiSig {
-    // ─────────────────────────────── Tipos ────────────────────────────────
-
     struct Proposal {
         uint256 id;
         address to;
@@ -20,7 +19,7 @@ contract MultiSig {
         bool cancelled;
     }
 
-    // ─────────────────────────────── Estado ───────────────────────────────
+    //  Estado 
 
     address[] public signers;
     uint256 public threshold;
@@ -28,10 +27,9 @@ contract MultiSig {
 
     mapping(address => bool) public isSigner;
     mapping(uint256 => Proposal) public proposals;
-    /// @dev proposalId => signer => ¿aprobó?
     mapping(uint256 => mapping(address => bool)) public hasApproved;
 
-    // ─────────────────────────────── Eventos ──────────────────────────────
+    //  Eventos 
 
     event ProposalCreated(
         uint256 indexed proposalId,
@@ -57,7 +55,7 @@ contract MultiSig {
         address indexed proposer
     );
 
-    // ─────────────────────────────── Modificadores ────────────────────────
+    //  Modificadores 
 
     modifier onlySigner() {
         require(isSigner[msg.sender], "MultiSig: no eres signer");
@@ -79,7 +77,7 @@ contract MultiSig {
         _;
     }
 
-    // ─────────────────────────────── Constructor ──────────────────────────
+    //  Constructor 
 
     /**
      * @param _signers Lista de direcciones autorizadas.
@@ -103,7 +101,7 @@ contract MultiSig {
         threshold = _threshold;
     }
 
-    // ─────────────────────────────── Funciones principales ────────────────
+    //  Funciones principales 
 
     /**
      * @notice Propone una nueva transacción.
@@ -210,7 +208,7 @@ contract MultiSig {
         emit ProposalCancelled(proposalId, msg.sender);
     }
 
-    // ─────────────────────────────── Vistas ───────────────────────────────
+    //  Vistas 
 
     /**
      * @notice Devuelve todos los signers del contrato.
@@ -242,7 +240,7 @@ contract MultiSig {
         return all;
     }
 
-    // ─────────────────────────────── Recepción de ETH ─────────────────────
+    //  Recepción de ETH 
 
     receive() external payable {}
 

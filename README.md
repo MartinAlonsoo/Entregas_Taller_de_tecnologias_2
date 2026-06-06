@@ -52,8 +52,9 @@ entrega_1_taller_2/
 
 ##  Compilar el contrato
 
+Desde la raíz del proyecto
+
 ```bash
-# Desde la raíz del proyecto
 npm install
 npm run compile
 ```
@@ -74,12 +75,6 @@ Suite de 25 tests que cubre: proponer, aprobar, ejecutar, cancelar, rechazo de d
 
 ### 1. Configurar variables de entorno
 
-Copiar `.env.example` como `.env` y completar:
-
-```bash
-copy .env.example .env
-```
-
 ```env
 SEPOLIA_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com
 PRIVATE_KEY=tu_clave_privada_sin_0x
@@ -92,6 +87,7 @@ THRESHOLD=2
 ```bash
 npm run deploy:sepolia
 ```
+Esto usará gas, entonces gastará etherium al correrlo.
 
 ### 3. Actualizar la dirección en el frontend
 
@@ -100,6 +96,7 @@ Copiar la dirección que imprime el script y pegarla en `frontend/src/config.ts`
 ```typescript
 export const CONTRACT_ADDRESS = "0x...dirección del contrato...";
 ```
+Esta direccion aqui es en donde vive nuestro contrato en el blockchain
 
 ---
 

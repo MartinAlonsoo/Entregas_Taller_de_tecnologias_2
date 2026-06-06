@@ -130,7 +130,7 @@ const ContractInfo: React.FC<Props> = ({ signers, threshold }) => {
       </div>
 
       {/* Sepolia link */}
-      {CONTRACT_ADDRESS !== "0x0000000000000000000000000000000000000000" && (
+      {(CONTRACT_ADDRESS as string).length > 0 && (
         <>
           <div className="divider" />
           <a
