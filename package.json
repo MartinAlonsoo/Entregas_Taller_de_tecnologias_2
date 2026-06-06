@@ -6,7 +6,6 @@
     "compile": "npx hardhat compile",
     "test": "npx hardhat test",
     "deploy:sepolia": "npx hardhat run scripts/deploy.js --network sepolia",
-    "demo:sepolia": "node scripts/demo_sepolia.js",
     "node": "npx hardhat node"
   },
   "devDependencies": {
