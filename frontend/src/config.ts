@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = ""; // Reemplazar con la dirección real del contrato
+export const CONTRACT_ADDRESS = import.meta.env.VITE_CONTRACT_ADDRESS?.trim() || "";
 
 export const SEPOLIA_CHAIN_ID = "0xaa36a7"; // 11155111 en hex
 

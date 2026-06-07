@@ -1,82 +1,93 @@
 # Entrega 2: Contrato MultiSig
 
-**Taller 2 — Universidad ORT Uruguay**
+**Taller 2 - Universidad ORT Uruguay**
 
-[Link al repositorio github](https://github.com/MartinAlonsoo/entrega_1_taller_2.git)
+[Link al repositorio GitHub](https://github.com/MartinAlonsoo/entrega_1_taller_2.git)
 
-Implementación full-stack de un contrato de firma múltiple (multisig programático) en Solidity, con interfaz React interactuando con la red de pruebas Sepolia.
-
----
+Implementación full-stack de un contrato de firma múltiple (multisig programático) en Solidity, con una interfaz React para operar el contrato en Sepolia.
 
 ## Descripción
 
-Para esta entrega se nos pidio implementar un **multisig** en solidity, en este caso es **pragmático**: el contrato almacena una lista fija de `signers` autorizados y requiere que al menos una cantidad de `threshold` de ellos aprueben una propuesta antes de que pueda ejecutarse.
+Este proyecto implementa un **multisig programático**: el contrato almacena una lista fija de `signers` autorizados y requiere que al menos `threshold` de ellos aprueben una propuesta antes de que pueda ejecutarse.
 
-> **Decisión de diseño**: El conjunto de signers es fijo en el despliegue. En este caso van a ser 2.
----
+**Decisión de diseño:** el conjunto de signers es fijo en el despliegue. Para esta entrega se trabaja con 2 signers y `threshold = 2`.
 
 ## Estructura del proyecto
 
-```
+```text
 entrega_1_taller_2/
 ├── contracts/
-│   └── MultiSig.sol           # Contrato principal
+│   └── MultiSig.sol              # Contrato principal
 ├── scripts/
-│   └── deploy.js              # Script de despliegue
+│   └── deploy.js                 # Script de despliegue
 ├── test/
-│   └── MultiSig.test.js       # Suite de tests (25 tests)
+│   └── MultiSig.test.js          # Suite de tests
 ├── frontend/
 │   ├── src/
-│   │   ├── abi/MultiSigABI.ts # ABI del contrato
-│   │   ├── components/        # Componentes React
-│   │   ├── hooks/
-│   │   │   └── useMultisig.ts # Hook principal Web3
-│   │   ├── config.ts          # Dirección del contrato
+│   │   ├── abi/MultiSigABI.ts    # ABI del contrato
+│   │   ├── components/           # Componentes React
+│   │   ├── hooks/useMultisig.ts  # Hook principal Web3
+│   │   ├── config.ts             # Lee VITE_CONTRACT_ADDRESS
 │   │   ├── App.tsx
 │   │   └── index.css
 │   └── package.json
+├── .env.example                  # Configuración de deploy y frontend
 ├── hardhat.config.js
 ├── package.json
-└── .env.example
+└── README.md
 ```
 
----
+## Requisitos
 
-##  Requisitos
+- Node.js para instalar dependencias, compilar y correr el frontend.
+- MetaMask instalado en el navegador.
+- Una cuenta con ETH de Sepolia para desplegar y pagar gas.
+- Dos cuentas/wallets que se usarán como `signers`.
 
-- Node.js ≥ 12 para el contrato
-- Node.js ≥ 14 para el frontend con Vite
-- La extension de MetaMask instalado en el navegador
-- En el caso de no tener Eth en tus wallets para pagar el gas, se puede usar faucets online nosotros usamos [Sepolia PoW](https://sepolia-faucet.pk910.de/#/)
+Si no tenés ETH de Sepolia, se puede usar un faucet. Para esta entrega usamos [Sepolia PoW](https://sepolia-faucet.pk910.de/#/).
 
----
+## Flujo de instalación, deploy y ejecución
 
-##  Compilar el contrato
+### 1. Instalar dependencias y compilar el contrato
 
-Desde la raíz del proyecto
+Desde la raíz del proyecto:
 
 ```bash
 npm install
 npm run compile
 ```
 
----
-
-##  Correr los tests
+### 2. Correr los tests
 
 ```bash
 npm test
 ```
 
-Suite de 25 tests que cubre: proponer, aprobar, ejecutar, cancelar, rechazo de duplicados y rechazo de non-signers.
+La suite cubre proponer, aprobar, ejecutar, cancelar, rechazo de aprobaciones duplicadas y rechazo de operaciones de non-signers.
 
----
+### 3. Crear el `.env` del proyecto
 
-## Desplegar en Sepolia
+El archivo `.env` de la raíz contiene la configuración del deploy y la dirección pública que usa el frontend. No se versiona en Git.
 
-### 1. Configurar variables de entorno
+En Linux/macOS o Git Bash:
 
-Dentro de .env.example vamos a tener el siguiente formato
+```bash
+cp .env.example .env
+```
+
+En Windows CMD:
+
+```cmd
+copy .env.example .env
+```
+
+En PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Después, editar `.env` y completar estos valores:
 
 ```env
 SEPOLIA_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com
@@ -88,70 +99,88 @@ SIGNERS=AddressSigner1,AddressSigner2
 
 THRESHOLD=2
 
+VITE_CONTRACT_ADDRESS=0xDireccionDelContratoDesplegado
 ```
-Donde las variables de private key van a ser las claves privadas de los signers , en signers va el address de nuestras wallets (o accounts) y threshold es la cantidad de aprobaciones necesitadas por signers para ejecutar la transacción.
 
+Notas:
 
-### 2. Ejecutar el deploy
+- `PRIVATE_KEY` es la cuenta que usa Hardhat para desplegar.
+- `PRIVATE_KEY_2` queda como referencia del segundo signer, pero la interacción real del frontend se hace desde MetaMask.
+- `SIGNERS` debe contener las direcciones públicas de las wallets autorizadas, separadas por coma.
+- `THRESHOLD=2` significa que se necesitan 2 aprobaciones para ejecutar una propuesta.
+- Las private keys van sin el prefijo `0x`.
+- `VITE_CONTRACT_ADDRESS` queda pendiente hasta después del deploy. Al principio puede dejarse como placeholder.
+- Las variables con prefijo `VITE_` son públicas en el navegador. No poner private keys ni secretos en variables `VITE_`.
+
+### 4. Desplegar en Sepolia
+
+Desde la raíz del proyecto:
 
 ```bash
 npm run deploy:sepolia
 ```
-Esto usará gas, entonces gastará etherium al correrlo.
 
-### 3. Actualizar la dirección en el frontend
+El deploy consume gas en Sepolia. Al finalizar, la consola imprime una dirección similar a:
 
-Copiar la dirección que imprime se imprime al correr el script de deploy y pegarla en `frontend/src/config.ts`:
-
-```typescript
-export const CONTRACT_ADDRESS = "0x...dirección del contrato...";
+```text
+MultiSig desplegado en: 0x...
 ```
-Esta direccion aqui es en donde vive nuestro contrato en el blockchain. Para poder ejecutar transacciones que "mueven" más de 0 Eth, el contrato debe tener algún Eth.
 
----
+Guardá esa dirección: es la dirección pública del contrato desplegado y se usa para configurar el frontend.
 
-## Ejecutar el frontend localmente
+Para ejecutar propuestas que envían más de `0 ETH`, el contrato debe tener fondos. Podés enviar ETH de Sepolia a la dirección del contrato desde MetaMask.
+
+### 5. Configurar la dirección del contrato para el frontend
+
+Editar el `.env` de la raíz y reemplazar `VITE_CONTRACT_ADDRESS` con la dirección que imprimió el deploy:
+
+```env
+VITE_CONTRACT_ADDRESS=0xDireccionDelContratoDesplegado
+```
+
+El frontend lee esta variable desde el `.env` de la raíz. No hace falta tocar `frontend/src/config.ts`.
+
+### 6. Ejecutar el frontend localmente
+
+Desde `frontend/`:
 
 ```bash
-cd frontend
 npm install
 npm run dev
 ```
 
-Abrir el navegador en el localhost que retorna en la consola.
+Abrir en el navegador la URL local que imprime Vite, normalmente:
 
-Conectar MetaMask con una de las wallets signer listadas en tu .env y asegurarse de estar en la red **Sepolia**.
+```text
+http://localhost:5173
+```
 
----
+Conectar MetaMask con una wallet incluida en `SIGNERS` y asegurarse de estar en la red **Sepolia**.
 
-## Contrato desplegado en Sepolia
+## Uso básico de la app
+
+1. Conectar MetaMask con una wallet signer.
+2. Crear una propuesta indicando destino, valor en ETH y calldata opcional.
+3. Aprobar la propuesta con el primer signer.
+4. Cambiar a la segunda wallet signer en MetaMask.
+5. Aprobar la misma propuesta con el segundo signer.
+6. Ejecutar la propuesta cuando llegue a `2 / 2` aprobaciones.
+7. Verificar la transacción en Sepolia Etherscan usando la dirección del contrato desplegado.
+
+## Datos del despliegue
+
+Cada usuario genera su propia dirección al correr `npm run deploy:sepolia`.
 
 | Campo | Valor |
 |-------|-------|
-| **Dirección del contrato** | `El que retorna el deploy` |
-| **Red** | Sepolia Testnet (Chain ID: 11155111) |
-| **Threshold** | 2 de 2 |
-| **Etherscan** | https://sepolia.etherscan.io/address/address_del_contrato |
-
----
+| Dirección del contrato | La dirección impresa por el deploy |
+| Red | Sepolia Testnet (Chain ID: 11155111) |
+| Threshold | 2 de 2 |
+| Etherscan | `https://sepolia.etherscan.io/address/<direccion_del_contrato>` |
 
 ## Wallets para interactuar
 
-Eso queda al criterio de la persona (usar wallet propia, crear más de un account y de esos accounts asignar uno como signer)
-
----
-
-## Flujo de prueba en Sepolia
-
-1. Abrir localhost retornado al correr npm run dev, con el frontend corriendo
-2. Conectar MetaMask con **Signer 1** en la red Sepolia
-3. Crear una propuesta (dirección destino + valor ETH)
-4. Aprobar la propuesta con **Signer 1**
-5. Cambiar a **Signer 2** en MetaMask y aprobar la misma propuesta
-6. Con cualquiera de los dos signers, ejecutar la propuesta (el botón se habilita al llegar a 2/2 aprobaciones)
-7. Verificar la transacción en https://sepolia.etherscan.io/address/address_del_contrato
-
----
+Las wallets habilitadas son las direcciones configuradas en `SIGNERS` dentro del `.env` de la raíz. Esas mismas cuentas deben usarse en MetaMask para aprobar y ejecutar propuestas desde el frontend.
 
 ## Integrantes
 

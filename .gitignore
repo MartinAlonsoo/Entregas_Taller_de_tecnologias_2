@@ -1,4 +1,9 @@
+# Env files locales
 .env
+!.env.example
+
+# Archivos temporales locales
+/temp/
 
 # Hardhat
 node_modules/
