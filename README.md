@@ -8,10 +8,9 @@ Implementación full-stack de un contrato de firma múltiple (multisig programá
 
 ## Descripción
 
-Este proyecto implementa un **multisig programático**: el contrato almacena una lista fija de `signers` autorizados y requiere que al menos `threshold` de ellos aprueben una propuesta antes de que pueda ejecutarse.
+Para esta entrega se nos pidio implementar un **multisig** en solidity, en este caso es **pragmático**: el contrato almacena una lista fija de `signers` autorizados y requiere que al menos una cantidad de `threshold` de ellos aprueben una propuesta antes de que pueda ejecutarse.
 
-> **Decisión de diseño**: El conjunto de signers es **fijo en el despliegue**. Se eligió este enfoque por su simplicidad y menor superficie de ataque.
-
+> **Decisión de diseño**: El conjunto de signers es fijo en el despliegue. En este caso van a ser 2.
 ---
 
 ## Estructura del proyecto
