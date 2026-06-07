@@ -2,6 +2,8 @@
 
 **Taller 2 — Universidad ORT Uruguay**
 
+[Link al repositorio github](https://github.com/MartinAlonsoo/entrega_1_taller_2.git)
+
 Implementación full-stack de un contrato de firma múltiple (multisig programático) en Solidity, con interfaz React interactuando con la red de pruebas Sepolia.
 
 ---
