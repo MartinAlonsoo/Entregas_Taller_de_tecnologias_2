@@ -53,7 +53,6 @@ export function useMultisig() {
   const providerRef = useRef<ethers.providers.Web3Provider | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // ─── Helpers ────────────────────────────────────────────────────────
 
   const getContract = useCallback((signerOrProvider: any) => {
     return new ethers.Contract(CONTRACT_ADDRESS, MultiSigABI, signerOrProvider);
@@ -62,7 +61,6 @@ export function useMultisig() {
   const setError = (msg: string) =>
     setState((s) => ({ ...s, error: msg, txPending: false }));
 
-  // ─── Load on-chain data ──────────────────────────────────────────────
 
   const loadContractData = useCallback(async (account: string) => {
     if (!providerRef.current) return;
@@ -77,7 +75,6 @@ export function useMultisig() {
         contract.isSigner(account),
       ]);
 
-      // Check which proposals the current account has approved
       const parsedProposals: Proposal[] = proposals.map((p: any) => ({
         id: p.id.toNumber(),
         to: p.to,
@@ -103,7 +100,6 @@ export function useMultisig() {
     }
   }, [getContract]);
 
-  // ─── Connect wallet ──────────────────────────────────────────────────
 
   const connect = useCallback(async () => {
     if (!window.ethereum) {
@@ -131,7 +127,6 @@ export function useMultisig() {
       }));
 
       if (!chainOk) {
-        // Try switching to Sepolia
         try {
           await window.ethereum.request({
             method: "wallet_switchEthereumChain",
@@ -147,7 +142,6 @@ export function useMultisig() {
 
       await loadContractData(account);
 
-      // Poll every 6 seconds
       if (pollRef.current) clearInterval(pollRef.current);
       pollRef.current = setInterval(() => loadContractData(account), 6000);
 
@@ -157,7 +151,6 @@ export function useMultisig() {
     }
   }, [loadContractData]);
 
-  // ─── Account/chain change listeners ─────────────────────────────────
 
   useEffect(() => {
     if (!window.ethereum) return;
@@ -186,7 +179,6 @@ export function useMultisig() {
     };
   }, [loadContractData]);
 
-  // ─── Contract write functions ────────────────────────────────────────
 
   const withTx = async <T>(fn: () => Promise<T>): Promise<T | null> => {
     setState((s) => ({ ...s, txPending: true, error: null }));

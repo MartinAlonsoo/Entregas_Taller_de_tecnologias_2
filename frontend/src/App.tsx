@@ -24,7 +24,7 @@ const App: React.FC = () => {
     setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 4500);
   };
 
-  // Show error toasts
+  // mostrar error toasts
   useEffect(() => {
     if (state.error) {
       const short = state.error.length > 100 ? state.error.slice(0, 97) + "…" : state.error;
@@ -58,7 +58,6 @@ const App: React.FC = () => {
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      {/* ── Header ── */}
       <header
         style={{
           position: "sticky",
@@ -76,7 +75,6 @@ const App: React.FC = () => {
         }}
       >
         <div className="flex items-center gap-3">
-          {/* Logo */}
           <div
             style={{
               width: 36,
@@ -115,7 +113,6 @@ const App: React.FC = () => {
         />
       </header>
 
-      {/* ── Not-signer warning ── */}
       {state.isConnected && state.chainOk && !state.isSigner && (
         <div
           style={{
@@ -131,7 +128,6 @@ const App: React.FC = () => {
         </div>
       )}
 
-      {/* ── Main Content ── */}
       <main
         style={{
           maxWidth: "1280px",
@@ -144,7 +140,6 @@ const App: React.FC = () => {
           alignItems: "start",
         }}
       >
-        {/* Left column: Proposals + New Proposal */}
         <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
           <NewProposalForm
             isSigner={state.isSigner}
@@ -164,7 +159,6 @@ const App: React.FC = () => {
           />
         </div>
 
-        {/* Right column: Contract Info */}
         <aside>
           <ContractInfo
             signers={state.signers}
@@ -174,7 +168,6 @@ const App: React.FC = () => {
         </aside>
       </main>
 
-      {/* ── Toast Notifications ── */}
       <div className="toast-container">
         {toasts.map((t) => (
           <div key={t.id} className={`toast toast-${t.type}`}>
@@ -183,7 +176,6 @@ const App: React.FC = () => {
         ))}
       </div>
 
-      {/* ── Responsive layout override ── */}
       <style>{`
         @media (max-width: 768px) {
           main {

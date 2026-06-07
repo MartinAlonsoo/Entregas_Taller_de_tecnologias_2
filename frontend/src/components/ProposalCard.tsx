@@ -71,7 +71,6 @@ const ProposalCard: React.FC<Props> = ({
         transition: "all 250ms ease",
       }}
     >
-      {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span
@@ -112,7 +111,6 @@ const ProposalCard: React.FC<Props> = ({
         </span>
       </div>
 
-      {/* Destination & Value */}
       <div
         style={{
           background: "var(--color-surface-2)",
@@ -146,7 +144,6 @@ const ProposalCard: React.FC<Props> = ({
         )}
       </div>
 
-      {/* Approval progress */}
       <div className="mb-3">
         <div className="flex items-center justify-between mb-2">
           <span className="text-muted text-xs">Aprobaciones</span>
@@ -160,10 +157,8 @@ const ProposalCard: React.FC<Props> = ({
         </div>
       </div>
 
-      {/* Actions */}
       {isPending && (
         <div className="flex gap-2" style={{ flexWrap: "wrap" }}>
-          {/* Approve */}
           <button
             id={`btn-approve-${proposal.id}`}
             className="btn btn-cyan btn-sm"
@@ -176,7 +171,6 @@ const ProposalCard: React.FC<Props> = ({
             {alreadyApproved ? "Ya aprobado" : "Aprobar"}
           </button>
 
-          {/* Execute */}
           <button
             id={`btn-execute-${proposal.id}`}
             className="btn btn-success btn-sm"
@@ -193,7 +187,6 @@ const ProposalCard: React.FC<Props> = ({
             Ejecutar
           </button>
 
-          {/* Cancel (proposer only) */}
           {isProposer && (
             <button
               id={`btn-cancel-${proposal.id}`}

@@ -43,10 +43,10 @@ entrega_1_taller_2/
 
 ##  Requisitos
 
-- Node.js ≥ 12 (para el contrato)
-- Node.js ≥ 14 (para el frontend con Vite)
-- MetaMask instalado en el navegador
-- ETH de testnet en Sepolia ([Google Faucet](https://cloud.google.com/application/web3/faucet/ethereum/sepolia))
+- Node.js ≥ 12 para el contrato
+- Node.js ≥ 14 para el frontend con Vite
+- La extension de MetaMask instalado en el navegador
+- En el caso de no tener Eth en tus wallets para pagar el gas, se puede usar faucets online nosotros usamos [Sepolia PoW](https://sepolia-faucet.pk910.de/#/)
 
 ---
 
@@ -75,12 +75,21 @@ Suite de 25 tests que cubre: proponer, aprobar, ejecutar, cancelar, rechazo de d
 
 ### 1. Configurar variables de entorno
 
+Dentro de .env.example vamos a tener el siguiente formato
+
 ```env
 SEPOLIA_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com
-PRIVATE_KEY=tu_clave_privada_sin_0x
-SIGNERS=0xDireccion1,0xDireccion2
+
+PRIVATE_KEY=private_key_Signer1_sin_0x
+PRIVATE_KEY_2=private_key_Signer2_sin_0x
+
+SIGNERS=AddressSigner1,AddressSigner2
+
 THRESHOLD=2
+
 ```
+Donde las variables de private key van a ser las claves privadas de los signers , en signers va el address de nuestras wallets (o accounts) y threshold es la cantidad de aprobaciones necesitadas por signers para ejecutar la transacción.
+
 
 ### 2. Ejecutar el deploy
 
@@ -91,12 +100,12 @@ Esto usará gas, entonces gastará etherium al correrlo.
 
 ### 3. Actualizar la dirección en el frontend
 
-Copiar la dirección que imprime el script y pegarla en `frontend/src/config.ts`:
+Copiar la dirección que imprime se imprime al correr el script de deploy y pegarla en `frontend/src/config.ts`:
 
 ```typescript
 export const CONTRACT_ADDRESS = "0x...dirección del contrato...";
 ```
-Esta direccion aqui es en donde vive nuestro contrato en el blockchain
+Esta direccion aqui es en donde vive nuestro contrato en el blockchain. Para poder ejecutar transacciones que "mueven" más de 0 Eth, el contrato debe tener algún Eth.
 
 ---
 
@@ -108,9 +117,9 @@ npm install
 npm run dev
 ```
 
-Abrir el navegador en **http://localhost:5173**.
+Abrir el navegador en el localhost que retorna en la consola.
 
-Conectar MetaMask con una de las wallets signer listadas abajo y asegurarse de estar en la red **Sepolia**.
+Conectar MetaMask con una de las wallets signer listadas en tu .env y asegurarse de estar en la red **Sepolia**.
 
 ---
 
@@ -118,33 +127,28 @@ Conectar MetaMask con una de las wallets signer listadas abajo y asegurarse de e
 
 | Campo | Valor |
 |-------|-------|
-| **Dirección del contrato** | `0x543B6A85cc2f252D580f6d314110C75D11Ef3b2E` |
+| **Dirección del contrato** | `El que retorna el deploy` |
 | **Red** | Sepolia Testnet (Chain ID: 11155111) |
 | **Threshold** | 2 de 2 |
-| **Etherscan** | [Ver contrato](https://sepolia.etherscan.io/address/0x543B6A85cc2f252D580f6d314110C75D11Ef3b2E) |
+| **Etherscan** | https://sepolia.etherscan.io/address/address_del_contrato |
 
 ---
 
 ## Wallets para interactuar
 
-Estas son las dos wallets autorizadas como signers del contrato. Ambas deben tener ETH de Sepolia para poder firmar transacciones.
-
-| Signer | Dirección |
-|--------|-----------|
-| Signer 1 | `0xb9F8D0EDD8028F70555450Ff1dA12b843225820e` |
-| Signer 2 | `0xB534FDc6Eb51C5Cb54dC6830A7040e64a0837EF1` |
+Eso queda al criterio de la persona (usar wallet propia, crear más de un account y de esos accounts asignar uno como signer)
 
 ---
 
 ## Flujo de prueba en Sepolia
 
-1. Abrir **http://localhost:5173** con el frontend corriendo
+1. Abrir localhost retornado al correr npm run dev, con el frontend corriendo
 2. Conectar MetaMask con **Signer 1** en la red Sepolia
 3. Crear una propuesta (dirección destino + valor ETH)
 4. Aprobar la propuesta con **Signer 1**
 5. Cambiar a **Signer 2** en MetaMask y aprobar la misma propuesta
 6. Con cualquiera de los dos signers, ejecutar la propuesta (el botón se habilita al llegar a 2/2 aprobaciones)
-7. Verificar la transacción en [Sepolia Etherscan](https://sepolia.etherscan.io/address/0x543B6A85cc2f252D580f6d314110C75D11Ef3b2E)
+7. Verificar la transacción en https://sepolia.etherscan.io/address/address_del_contrato
 
 ---
 

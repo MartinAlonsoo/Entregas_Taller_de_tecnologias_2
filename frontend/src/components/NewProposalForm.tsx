@@ -75,7 +75,6 @@ const NewProposalForm: React.FC<Props> = ({ isSigner, txPending, onPropose }) =>
 
       <form onSubmit={handleSubmit} id="form-new-proposal">
         <div className="flex flex-col gap-4">
-          {/* Destination */}
           <div>
             <label htmlFor="input-to">Dirección Destino *</label>
             <input
@@ -89,7 +88,6 @@ const NewProposalForm: React.FC<Props> = ({ isSigner, txPending, onPropose }) =>
             />
           </div>
 
-          {/* Value */}
           <div>
             <label htmlFor="input-value">Valor en ETH</label>
             <div style={{ position: "relative" }}>
@@ -119,7 +117,6 @@ const NewProposalForm: React.FC<Props> = ({ isSigner, txPending, onPropose }) =>
             </div>
           </div>
 
-          {/* Calldata */}
           <div>
             <label htmlFor="input-calldata">
               Calldata{" "}
@@ -137,7 +134,6 @@ const NewProposalForm: React.FC<Props> = ({ isSigner, txPending, onPropose }) =>
             />
           </div>
 
-          {/* Error */}
           {localError && (
             <div
               style={{

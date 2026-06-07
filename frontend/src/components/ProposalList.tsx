@@ -26,7 +26,6 @@ const ProposalList: React.FC<Props> = (props) => {
     return true;
   });
 
-  // Show newest first
   const sorted = [...filtered].reverse();
 
   const counts = {
@@ -45,7 +44,6 @@ const ProposalList: React.FC<Props> = (props) => {
 
   return (
     <div>
-      {/* Header + Filters */}
       <div className="flex items-center justify-between mb-4" style={{ flexWrap: "wrap", gap: "0.75rem" }}>
         <div className="flex items-center gap-2">
           <span style={{ fontSize: "1.2rem" }}>📜</span>
@@ -93,7 +91,6 @@ const ProposalList: React.FC<Props> = (props) => {
         </div>
       </div>
 
-      {/* Empty state */}
       {sorted.length === 0 && (
         <div
           className="card"
@@ -112,7 +109,6 @@ const ProposalList: React.FC<Props> = (props) => {
         </div>
       )}
 
-      {/* Cards grid */}
       <div
         style={{
           display: "grid",

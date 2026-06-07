@@ -4,7 +4,7 @@
 // y reemplazá este archivo con artifacts/contracts/MultiSig.sol/MultiSig.json
 
 const MultiSigABI = [
-  // ─── Constructor ───
+  //  Constructor 
   {
     "inputs": [
       { "internalType": "address[]", "name": "_signers", "type": "address[]" },
@@ -14,7 +14,7 @@ const MultiSigABI = [
     "type": "constructor"
   },
 
-  // ─── Eventos ───
+  //  Eventos 
   {
     "anonymous": false,
     "inputs": [
@@ -56,7 +56,7 @@ const MultiSigABI = [
     "type": "event"
   },
 
-  // ─── Funciones de escritura ───
+  //  Funciones de escritura 
   {
     "inputs": [
       { "internalType": "address", "name": "to", "type": "address" },
@@ -90,7 +90,7 @@ const MultiSigABI = [
     "type": "function"
   },
 
-  // ─── Funciones de lectura ───
+  //  Funciones de lectura 
   {
     "inputs": [],
     "name": "getSigners",

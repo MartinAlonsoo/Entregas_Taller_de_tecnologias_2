@@ -1,11 +1,6 @@
-/* ─────────────────────────────────────────────────────────────
-   MultiSig Frontend — Design System
-   Dark glassmorphism theme with purple/cyan accent palette
-───────────────────────────────────────────────────────────── */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
 
-/* ── Tokens ── */
 :root {
   --color-bg: #080b14;
   --color-surface: rgba(15, 20, 35, 0.85);
@@ -40,7 +35,6 @@
   --font-mono: 'Space Mono', 'Fira Code', monospace;
 }
 
-/* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -58,13 +52,11 @@ body {
   background-attachment: fixed;
 }
 
-/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: rgba(139, 92, 246, 0.3); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(139, 92, 246, 0.55); }
 
-/* ── Typography ── */
 h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.5px; }
 h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.3px; }
 h3 { font-size: 1rem; font-weight: 600; }
@@ -72,7 +64,6 @@ p  { line-height: 1.6; }
 
 .mono { font-family: var(--font-mono); }
 
-/* ── Glass Card ── */
 .card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -89,7 +80,6 @@ p  { line-height: 1.6; }
   box-shadow: var(--shadow-card), var(--shadow-glow);
 }
 
-/* ── Buttons ── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -180,7 +170,6 @@ p  { line-height: 1.6; }
   font-size: 0.8rem;
 }
 
-/* ── Form Inputs ── */
 .input {
   width: 100%;
   padding: 0.625rem 0.875rem;
@@ -216,7 +205,6 @@ label {
   text-transform: uppercase;
 }
 
-/* ── Badge / Pill ── */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -232,7 +220,6 @@ label {
 .badge-executed  { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
 .badge-cancelled { background: rgba(239, 68, 68, 0.12);  color: #f87171; border: 1px solid rgba(239, 68, 68, 0.25); }
 
-/* ── Progress bar ── */
 .progress-bar {
   height: 5px;
   border-radius: 9999px;
@@ -248,14 +235,12 @@ label {
   box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
 }
 
-/* ── Divider ── */
 .divider {
   height: 1px;
   background: var(--color-border-light);
   margin: 1rem 0;
 }
 
-/* ── Toast notification ── */
 .toast-container {
   position: fixed;
   bottom: 1.5rem;
@@ -281,7 +266,6 @@ label {
 .toast-error   { background: rgba(239, 68, 68, 0.2);  border-color: rgba(239, 68, 68, 0.4);  color: #fca5a5; }
 .toast-info    { background: rgba(139, 92, 246, 0.2); border-color: rgba(139, 92, 246, 0.4); color: #c4b5fd; }
 
-/* ── Spinner ── */
 .spinner {
   width: 18px;
   height: 18px;
@@ -292,7 +276,6 @@ label {
   display: inline-block;
 }
 
-/* ── Animations ── */
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -314,7 +297,6 @@ label {
 
 .animate-in { animation: fadeInUp 0.3s ease-out; }
 
-/* ── Address display ── */
 .address {
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -322,7 +304,6 @@ label {
   word-break: break-all;
 }
 
-/* ── Dot indicator ── */
 .dot {
   width: 8px;
   height: 8px;
@@ -334,7 +315,6 @@ label {
 .dot-yellow { background: var(--color-warning); }
 .dot-red { background: var(--color-danger); }
 
-/* ── Utility ── */
 .text-muted  { color: var(--color-text-muted); }
 .text-accent { color: var(--color-accent); }
 .text-cyan   { color: var(--color-accent-2); }

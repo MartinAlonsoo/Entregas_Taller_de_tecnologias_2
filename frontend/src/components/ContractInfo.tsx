@@ -19,7 +19,6 @@ const ContractInfo: React.FC<Props> = ({ signers, threshold }) => {
         <h2>Información del Contrato</h2>
       </div>
 
-      {/* Contract address */}
       <div className="mb-4">
         <label>Dirección del Contrato (Sepolia)</label>
         <div
@@ -50,7 +49,6 @@ const ContractInfo: React.FC<Props> = ({ signers, threshold }) => {
 
       <div className="divider" />
 
-      {/* Threshold */}
       <div className="flex items-center justify-between mb-3">
         <span className="text-muted text-sm">Threshold</span>
         <span style={{
@@ -67,7 +65,6 @@ const ContractInfo: React.FC<Props> = ({ signers, threshold }) => {
         </span>
       </div>
 
-      {/* Signers list */}
       <div>
         <label>Signers ({signers.length})</label>
         <div className="flex flex-col gap-2 mt-2">
