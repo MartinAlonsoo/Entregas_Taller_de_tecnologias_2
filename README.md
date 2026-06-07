@@ -39,7 +39,7 @@ entrega_1_taller_2/
 
 ## Requisitos
 
-- Node.js para instalar dependencias, compilar y correr el frontend.
+- Node.js (version >= 14) para instalar dependencias, compilar y correr el frontend.
 - MetaMask instalado en el navegador.
 - Una cuenta con ETH de Sepolia para desplegar y pagar gas.
 - Dos cuentas/wallets que se usarán como `signers`.
@@ -149,11 +149,7 @@ npm install
 npm run dev
 ```
 
-Abrir en el navegador la URL local que imprime Vite, normalmente:
-
-```text
-http://localhost:5173
-```
+Abrir en el navegador la URL local que imprime Vite, lo devuelve la consola al hacer el "npm run dev"
 
 Conectar MetaMask con una wallet incluida en `SIGNERS` y asegurarse de estar en la red **Sepolia**.
 
